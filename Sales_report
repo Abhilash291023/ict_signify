@@ -9,19 +9,23 @@ public class SalesReportGenerator {
         int total_Sum=0;
         double avg_Price=0.0;
         int[][] a = new int[n][3];
-        for (int i = 0; i < n; i++) {//loop to accept item details
-            System.out.println("Enter the code of the item");
-            int name = sc.nextInt();
-            a[i][0]=name;
-            System.out.println("Enter the quantity sold of the item");
-            int sold = sc.nextInt();
-            a[i][1]=sold;
-            System.out.println("Enter the price of the item");
-            int price = sc.nextInt();
-            a[i][2]=price;
-            if(sold>a[highestSold][1])
-                highestSold=i;
-            total_Sum += price*sold;
+        try{
+                for (int i = 0; i < n; i++) {//loop to accept item details
+                    System.out.println("Enter the code of the item");
+                    int name = sc.nextInt();
+                    a[i][0]=name;
+                    System.out.println("Enter the quantity sold of the item");
+                    int sold = sc.nextInt();
+                    a[i][1]=sold;
+                    System.out.println("Enter the price of the item");
+                    int price = sc.nextInt();
+                    a[i][2]=price;
+                    if(sold>a[highestSold][1])
+                        highestSold=i;
+                    total_Sum += price*sold;
+                }
+        }catch(Exception e){
+                System.out.println("Error!!");
         }
         avg_Price=(double)(total_Sum/n);
         System.out.println("\t\t\t\t\tSales Report\t\t\t");//sales report generation
