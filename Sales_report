@@ -1,0 +1,36 @@
+import java.util.Scanner;
+
+public class SalesReportGenerator {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Enter the number of items");
+        int n = sc.nextInt();
+        int highestSold=0;
+        int total_Sum=0;
+        double avg_Price=0.0;
+        int[][] a = new int[n][3];
+        for (int i = 0; i < n; i++) {//loop to accept item details
+            System.out.println("Enter the code of the item");
+            int name = sc.nextInt();
+            a[i][0]=name;
+            System.out.println("Enter the quantity sold of the item");
+            int sold = sc.nextInt();
+            a[i][1]=sold;
+            System.out.println("Enter the price of the item");
+            int price = sc.nextInt();
+            a[i][2]=price;
+            if(sold>a[highestSold][1])
+                highestSold=i;
+            total_Sum += price*sold;
+        }
+        avg_Price=(double)(total_Sum/n);
+        System.out.println("\t\t\t\t\tSales Report\t\t\t");//sales report generation
+        System.out.println("Item code\t\t\tItem Sold\t\t\tItem Price");
+        for (int i = 0; i < n; i++) {
+            System.out.println(a[i][0]+"\t\t\t\t\t\t"+a[i][1]+"\t\t\t\t\t\t"+a[i][2]);
+        }
+        System.out.println("Total Sales\t\t\t\t"+total_Sum);
+        System.out.println("Average Price\t\t\t"+avg_Price);
+        System.out.println("Highest Sold item\t\t"+a[highestSold][0]);
+    }
+}
