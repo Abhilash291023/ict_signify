@@ -1,0 +1,116 @@
+package com.signify.student.controllers;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+
+@RestController
+public class StudentGradeGenerator {
+
+    @PostMapping("/studentEntry")
+    public String entry(@RequestBody Map<String, String> data) {
+        String getName = data.get("Name");
+        String getRoll = data.get("Roll No.");
+        String getDob = data.get("Date of Birth");
+        String getGend = data.get("Gender");
+        String getAdmno = data.get("Admission Number");
+        String getDept = data.get("Department");
+        String getBlood = data.get("Blood Group");
+        String getAdd = data.get("Address");
+        String getPin = data.get("Pincode");
+
+        return "Student data added successfully";
+    }
+
+    @PostMapping("/findresult")
+    public String passfail(@RequestBody Map<String, String> data) {
+        String getRoll = data.get("Roll No.");
+        int maths = Integer.parseInt(data.get("Maths"));
+        int bio = Integer.parseInt(data.get("Biology"));
+        int phy = Integer.parseInt(data.get("Physics"));
+        int chem = Integer.parseInt(data.get("Chemistry"));
+        int eng = Integer.parseInt(data.get("English"));
+        int soc = Integer.parseInt(data.get("Social"));
+
+        int totalMarks = maths + bio + phy + chem + eng + soc;
+        int maxMarks = 600;
+        double percentage = (totalMarks * 100.0) / maxMarks;
+
+        String grade;
+        if (percentage >= 90) {
+            grade = "S";
+        } else if (percentage >= 85) {
+            grade = "A+";
+        } else if (percentage >= 80) {
+            grade = "A";
+        } else if (percentage >= 75) {
+            grade = "B+";
+        } else if (percentage >= 70) {
+            grade = "B";
+        } else if (percentage >= 65) {
+            grade = "C+";
+        } else if (percentage >= 60) {
+            grade = "C";
+        } else if (percentage >= 55) {
+            grade = "D+";
+        } else if (percentage >= 50) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+
+        boolean isFail = maths < 50 || bio < 50 || phy < 50 || chem < 50 || eng < 50 || soc < 50;
+
+        if (isFail) {
+            return "Roll No: " + getRoll + "\nStatus: Fail\nGrade: F";
+        } else {
+            return "Roll No: " + getRoll + "\nStatus: Pass\nGrade: " + grade;
+        }
+    }
+}
+
+//////////next code
+package com.signify.student.controllers;
+
+import org.springframework.web.bind.annotation.*;
+import java.util.Map;
+
+@RestController
+public class Calculator {
+
+    @PostMapping("/adding")
+    public int addition(@RequestBody Map<String, String> data) {
+        String geta = data.get("a");
+        String getb = data.get("b");
+        int a = Integer.parseInt(geta);
+        int b = Integer.parseInt(getb);
+        return a + b;
+    }
+
+    @PostMapping("/subtracting")
+    public int subtraction(@RequestBody Map<String, String> data) {
+        String geta = data.get("a");
+        String getb = data.get("b");
+        int a = Integer.parseInt(geta);
+        int b = Integer.parseInt(getb);
+        return a - b;
+    }
+
+    @PostMapping("/multiplying")
+    public int multiplication(@RequestBody Map<String, String> data) {
+        String geta = data.get("a");
+        String getb = data.get("b");
+        int a = Integer.parseInt(geta);
+        int b = Integer.parseInt(getb);
+        return a * b;
+    }
+
+    @PostMapping("/division")
+    public int division(@RequestBody Map<String, String> data) {
+        String geta = data.get("a");
+        String getb = data.get("b");
+        int a = Integer.parseInt(geta);
+        int b = Integer.parseInt(getb);
+        return a / b;
+    }
+}
+
