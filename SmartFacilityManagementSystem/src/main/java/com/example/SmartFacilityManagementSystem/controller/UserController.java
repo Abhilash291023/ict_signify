@@ -3,6 +3,7 @@ package com.example.SmartFacilityManagementSystem.controller;
 import com.example.SmartFacilityManagementSystem.model.Users;
 import com.example.SmartFacilityManagementSystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,11 +23,13 @@ public class UserController {
 
     // Login endpoint (for simplicity; use proper authentication mechanisms in production)
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody Users user) {
+    public ResponseEntity<Object> login(@RequestBody Users user) {
         return userRepository.validateUser(user.getEmail(), user.getPassword())
-                .map(validUser -> ResponseEntity.ok(validUser))
-                .orElse(ResponseEntity.status(401).body("Invalid Credentials"));
+                .map(validUser -> ResponseEntity.ok((Object) validUser))
+                .orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid Credentials"));
     }
+
+
 
     // Additional endpoints (update, delete, view details) can be added here
 }
